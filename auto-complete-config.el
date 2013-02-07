@@ -79,12 +79,12 @@
 ;; gtags
 
 (defface ac-gtags-candidate-face
-  '((t (:background "lightgray" :foreground "navy")))
+  '((t (:inherit ac-candidate-face :foreground "navy")))
   "Face for gtags candidate"
   :group 'auto-complete)
 
 (defface ac-gtags-selection-face
-  '((t (:background "navy" :foreground "white")))
+  '((t (:inherit ac-selection-face :background "navy")))
   "Face for the gtags selected candidate."
   :group 'auto-complete)
 
@@ -102,12 +102,13 @@
 ;; yasnippet
 
 (defface ac-yasnippet-candidate-face
-  '((t (:background "sandybrown" :foreground "black")))
+  '((t (:inherit ac-candidate-face
+                 :background "sandybrown" :foreground "black")))
   "Face for yasnippet candidate."
   :group 'auto-complete)
 
 (defface ac-yasnippet-selection-face
-  '((t (:background "coral3" :foreground "white")))
+  '((t (:inherit ac-selection-face :background "coral3")))
   "Face for the yasnippet selected candidate."
   :group 'auto-complete)
 
@@ -175,21 +176,22 @@
 (defun ac-semantic-candidates (prefix)
   (with-no-warnings
     (delete ""            ; semantic sometimes returns an empty string
-            (mapcar '(lambda (elem)
-                       (cons (semantic-tag-name elem)
-                             (semantic-tag-clone elem)))
+            (mapcar (lambda (elem)
+                      (cons (semantic-tag-name elem)
+                            (semantic-tag-clone elem)))
                     (ignore-errors
                       (or (semantic-analyze-possible-completions
                            (semantic-analyze-current-context))
                           (senator-find-tag-for-completion prefix)))))))
 
 (defun ac-semantic-doc (symbol)
-  (let* ((proto (semantic-format-tag-summarize-with-file symbol nil t))
-         (doc (semantic-documentation-for-tag symbol))
-         (res proto))
-    (when doc
-      (setq res (concat res "\n\n" doc)))
-    res))
+  (with-no-warnings
+    (let* ((proto (semantic-format-tag-summarize-with-file symbol nil t))
+           (doc (semantic-documentation-for-tag symbol))
+           (res proto))
+      (when doc
+        (setq res (concat res "\n\n" doc)))
+      res)))
 
 (ac-define-source semantic
   '((available . (or (require 'semantic-ia nil t)
