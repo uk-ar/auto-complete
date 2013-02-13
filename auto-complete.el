@@ -1441,8 +1441,9 @@ that have been made before in this function.  When `buffer-undo-list' is
   "Select next candidate."
   (interactive)
   (when (ac-menu-live-p)
+    (when (popup-hidden-p ac-menu)
+      (ac-show-menu))
     (popup-next ac-menu)
-    (setq ac-show-menu t)
     (if (eq this-command 'ac-next)
         (setq ac-dwim-enable t))))
 
@@ -1450,8 +1451,9 @@ that have been made before in this function.  When `buffer-undo-list' is
   "Select previous candidate."
   (interactive)
   (when (ac-menu-live-p)
+    (when (popup-hidden-p ac-menu)
+      (ac-show-menu))
     (popup-previous ac-menu)
-    (setq ac-show-menu t)
     (if (eq this-command 'ac-previous)
         (setq ac-dwim-enable t))))
 
