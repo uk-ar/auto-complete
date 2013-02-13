@@ -37,64 +37,64 @@ Expect:
 
 * Auto-completion
 
-** Type some string at *scratch* buffer
+** Type some string at *scratch* buffer[Done]
 Expect:
     Menu contains words in the current buffer.
 
-** Type some string at right of the window
+** Type some string at right of the window[POPUP]
 Expect:
     Menu will be shown in right-to-left direction without any window scrolling.
 
-** Continue to type some string above case
+** Continue to type some string above case[POPUP]
 Expect:
     Menu will never be disrupted.
 
-** Type some string at the right of window with truncate-lines enabled
+** Type some string at the right of window with truncate-lines enabled[POPUP]
 Assume:
     (setq truncate-lines t)
 
-** Type some string at the bottom of window
+** Type some string at the bottom of window[POPUP]
 Expect:
     Menu will be shown in bottom-to-top direction without any window scrolling.
 
-** Delete a character at the word
+** Delete a character at the word[Done]
 Expect:
     Completion will be started.
 
-** Type some string so that a menu overlaps the end of buffer that doesn't have newline at the end
+** Type some string so that a menu overlaps the end of buffer that doesn't have newline at the end[POPUP]
 Expect:
     Menu will be shown correctly.
     Newline at the end is not seen.
 
-** Type some string with ac-auto-start nil
+** Type some string with ac-auto-start nil[interactive]
 Assume:
     (setq ac-auto-start nil)
 
 Expect:
     Completion will never be started automatically.
 
-** Type some string with ac-auto-start t
+** Type some string with ac-auto-start t[interactive]
 Assume:
     (setq ac-auto-start t)
 
 Expect:
     Completion will be started automatically if possible.
 
-** Type 1 character with ac-auto-start 2
+** Type 1 character with ac-auto-start 2[interactive]
 Assume:
     (setq ac-auto-start 2)
 
 Expect:
     Completion will never be started automatically.
 
-** Type 2 characters with ac-auto-start 2
+** Type 2 characters with ac-auto-start 2[interactive]
 Assume:
     (setq ac-auto-start 2)
 
 Expect:
     Completion will be started automatically if possible.
 
-** Type F
+** Type F[Done]
 Expect:
     Menu contains "Foo" and "FooBar" as candidates.
     Inline completion appears and it contains "oo" as common-part.
@@ -121,7 +121,7 @@ Expect:
     (c) If the prefix equals to the first of candidates, auto-complete selects next candidate.
     (d) Othewise, auto-complete expands selected candidate.
 
-** Type RET while completion
+** Type RET while completion[Done]
 Expect:
     Completion will be done for selected candidate.
     If its candidate has an action, the action will be invoked.
